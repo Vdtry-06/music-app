@@ -13,7 +13,9 @@ import com.example.colorphone.domain.model.RoomStatus
 import java.text.NumberFormat
 import java.util.Locale
 
-class RoomAdapter : ListAdapter<Room, RoomAdapter.RoomViewHolder>(RoomDiffCallback()) {
+class RoomAdapter(
+    private val onLongClick: (Room) -> Unit
+) : ListAdapter<Room, RoomAdapter.RoomViewHolder>(RoomDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RoomViewHolder {
         val binding = ItemRoomBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -24,7 +26,7 @@ class RoomAdapter : ListAdapter<Room, RoomAdapter.RoomViewHolder>(RoomDiffCallba
         holder.bind(getItem(position))
     }
 
-    class RoomViewHolder(private val binding: ItemRoomBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class RoomViewHolder(private val binding: ItemRoomBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(room: Room) {
             binding.apply {
                 tvRoomName.text = room.name
@@ -39,6 +41,11 @@ class RoomAdapter : ListAdapter<Room, RoomAdapter.RoomViewHolder>(RoomDiffCallba
                     tvStatus.background = ContextCompat.getDrawable(root.context, R.drawable.bg_status_available)
                 } else {
                     tvStatus.background = ContextCompat.getDrawable(root.context, R.drawable.bg_status_rented)
+                }
+
+                root.setOnLongClickListener {
+                    onLongClick(room)
+                    true
                 }
             }
         }
