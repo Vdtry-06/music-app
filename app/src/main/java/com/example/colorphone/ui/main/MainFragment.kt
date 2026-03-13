@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.colorphone.databinding.FragmentMainBinding
 import com.example.colorphone.ui.core.ActivityViewModel
 import com.example.colorphone.ui.core.base.BaseFragment
-import com.example.colorphone.ui.utils.DialogUtils
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -18,11 +17,7 @@ import kotlinx.coroutines.launch
 class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::inflate) {
 
     private val viewModel: ActivityViewModel by activityViewModels()
-    private val adapter by lazy { 
-        RoomAdapter { room ->
-            showDeleteConfirmDialog(room.id, room.name)
-        } 
-    }
+    private val adapter by lazy { RoomAdapter() }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -32,12 +27,6 @@ class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::infl
     private fun setupRecyclerView() {
         binding.rvRooms.adapter = adapter
         binding.rvRooms.layoutManager = LinearLayoutManager(requireContext())
-    }
-
-    private fun showDeleteConfirmDialog(roomId: String, roomName: String) {
-        DialogUtils.showConfirmDeleteDialog(requireContext(), roomName) {
-            viewModel.deleteRoom(roomId)
-        }
     }
 
     override fun setupObserver() {
