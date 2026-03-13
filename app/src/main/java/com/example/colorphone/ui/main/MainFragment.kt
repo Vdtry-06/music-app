@@ -7,6 +7,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.colorphone.R
 import com.example.colorphone.databinding.FragmentMainBinding
 import com.example.colorphone.ui.core.ActivityViewModel
 import com.example.colorphone.ui.core.base.BaseFragment
@@ -27,6 +28,12 @@ class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::infl
     private fun setupRecyclerView() {
         binding.rvRooms.adapter = adapter
         binding.rvRooms.layoutManager = LinearLayoutManager(requireContext())
+    }
+
+    override fun setUpListener() {
+        binding.fabAddRoom.setOnClickListener {
+            navController.navigate(R.id.action_mainFragment_to_addRoomFragment)
+        }
     }
 
     override fun setupObserver() {

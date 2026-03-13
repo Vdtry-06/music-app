@@ -10,6 +10,15 @@
         android:id="@+id/mainFragment"
         android:name="com.example.colorphone.ui.main.MainFragment"
         android:label="fragment_main"
-        tools:layout="@layout/fragment_main" />
+        tools:layout="@layout/fragment_main">
+        <action
+            android:id="@+id/action_mainFragment_to_addRoomFragment"
+            app:destination="@id/addRoomFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addRoomFragment"
+        android:name="com.example.colorphone.ui.main.AddRoomFragment"
+        android:label="AddRoomFragment"
+        tools:layout="@layout/fragment_add_room" />
 
 </navigation>
