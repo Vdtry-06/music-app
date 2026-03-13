@@ -13,18 +13,21 @@ import com.example.colorphone.domain.model.RoomStatus
 import java.text.NumberFormat
 import java.util.Locale
 
-class RoomAdapter : ListAdapter<Room, RoomAdapter.RoomViewHolder>(RoomDiffCallback()) {
+class RoomAdapter(private val onItemClick: (Room) -> Unit) : ListAdapter<Room, RoomAdapter.RoomViewHolder>(RoomDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RoomViewHolder {
         val binding = ItemRoomBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return RoomViewHolder(binding)
+        return RoomViewHolder(binding, onItemClick)
     }
 
     override fun onBindViewHolder(holder: RoomViewHolder, position: Int) {
         holder.bind(getItem(position))
     }
 
-    class RoomViewHolder(private val binding: ItemRoomBinding) : RecyclerView.ViewHolder(binding.root) {
+    class RoomViewHolder(
+        private val binding: ItemRoomBinding,
+        private val onItemClick: (Room) -> Unit
+    ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(room: Room) {
             binding.apply {
                 tvRoomName.text = room.name
@@ -39,6 +42,10 @@ class RoomAdapter : ListAdapter<Room, RoomAdapter.RoomViewHolder>(RoomDiffCallba
                     tvStatus.background = ContextCompat.getDrawable(root.context, R.drawable.bg_status_available)
                 } else {
                     tvStatus.background = ContextCompat.getDrawable(root.context, R.drawable.bg_status_rented)
+                }
+
+                root.setOnClickListener {
+                    onItemClick(room)
                 }
             }
         }

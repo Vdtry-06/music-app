@@ -6,6 +6,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.colorphone.R
 import com.example.colorphone.databinding.FragmentMainBinding
@@ -18,7 +19,12 @@ import kotlinx.coroutines.launch
 class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::inflate) {
 
     private val viewModel: ActivityViewModel by activityViewModels()
-    private val adapter by lazy { RoomAdapter() }
+    private val adapter by lazy { 
+        RoomAdapter { room ->
+            val action = MainFragmentDirections.actionMainFragmentToEditRoomFragment2(room.id)
+            findNavController().navigate(action)
+        } 
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

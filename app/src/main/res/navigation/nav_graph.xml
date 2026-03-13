@@ -14,11 +14,28 @@
         <action
             android:id="@+id/action_mainFragment_to_addRoomFragment"
             app:destination="@id/addRoomFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_editRoomFragment2"
+            app:destination="@id/editRoomFragment" />
     </fragment>
     <fragment
         android:id="@+id/addRoomFragment"
         android:name="com.example.colorphone.ui.main.AddRoomFragment"
         android:label="AddRoomFragment"
-        tools:layout="@layout/fragment_add_room" />
+        tools:layout="@layout/fragment_add_room"  >
+        <action
+            android:id="@+id/action_mainFragment_to_editRoomFragment"
+            app:destination="@id/editRoomFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/editRoomFragment"
+        android:name="com.example.colorphone.ui.main.EditRoomFragment"
+        android:label="EditRoomFragment"
+        tools:layout="@layout/fragment_edit_room">
+        <argument
+            android:name="roomId"
+            app:argType="string" />
+    </fragment>
 
 </navigation>

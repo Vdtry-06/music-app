@@ -1,0 +1,318 @@
+Index: app/src/main/java/com/example/colorphone/ui/main/MainFragment.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.colorphone.ui.main\r\n\r\nimport android.os.Bundle\r\nimport android.view.View\r\nimport androidx.fragment.app.activityViewModels\r\nimport androidx.lifecycle.Lifecycle\r\nimport androidx.lifecycle.lifecycleScope\r\nimport androidx.lifecycle.repeatOnLifecycle\r\nimport androidx.recyclerview.widget.LinearLayoutManager\r\nimport com.example.colorphone.databinding.FragmentMainBinding\r\nimport com.example.colorphone.ui.core.ActivityViewModel\r\nimport com.example.colorphone.ui.core.base.BaseFragment\r\nimport dagger.hilt.android.AndroidEntryPoint\r\nimport kotlinx.coroutines.launch\r\n\r\n@AndroidEntryPoint\r\nclass MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::inflate) {\r\n\r\n    private val viewModel: ActivityViewModel by activityViewModels()\r\n    private val adapter by lazy { RoomAdapter() }\r\n\r\n    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {\r\n        super.onViewCreated(view, savedInstanceState)\r\n        setupRecyclerView()\r\n    }\r\n\r\n    private fun setupRecyclerView() {\r\n        binding.rvRooms.adapter = adapter\r\n        binding.rvRooms.layoutManager = LinearLayoutManager(requireContext())\r\n    }\r\n\r\n    override fun setupObserver() {\r\n        viewLifecycleOwner.lifecycleScope.launch {\r\n            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {\r\n                viewModel.rooms.collect { rooms ->\r\n                    adapter.submitList(rooms)\r\n                }\r\n            }\r\n        }\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/colorphone/ui/main/MainFragment.kt b/app/src/main/java/com/example/colorphone/ui/main/MainFragment.kt
+--- a/app/src/main/java/com/example/colorphone/ui/main/MainFragment.kt	(revision 8a5d6ecde16e1aac7de4e30ee6fe024218f37a08)
++++ b/app/src/main/java/com/example/colorphone/ui/main/MainFragment.kt	(date 1773395369172)
+@@ -6,6 +6,7 @@
+ import androidx.lifecycle.Lifecycle
+ import androidx.lifecycle.lifecycleScope
+ import androidx.lifecycle.repeatOnLifecycle
++import androidx.navigation.fragment.findNavController
+ import androidx.recyclerview.widget.LinearLayoutManager
+ import com.example.colorphone.databinding.FragmentMainBinding
+ import com.example.colorphone.ui.core.ActivityViewModel
+@@ -17,7 +18,12 @@
+ class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::inflate) {
+ 
+     private val viewModel: ActivityViewModel by activityViewModels()
+-    private val adapter by lazy { RoomAdapter() }
++    private val adapter by lazy { 
++        RoomAdapter { room ->
++            val action = MainFragmentDirections.actionMainFragmentToEditRoomFragment(room.id)
++            findNavController().navigate(action)
++        } 
++    }
+ 
+     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+         super.onViewCreated(view, savedInstanceState)
+@@ -38,4 +44,4 @@
+             }
+         }
+     }
+-}
+\ No newline at end of file
++}
+Index: app/src/main/java/com/example/colorphone/ui/main/RoomAdapter.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.colorphone.ui.main\r\n\r\nimport android.view.LayoutInflater\r\nimport android.view.ViewGroup\r\nimport androidx.core.content.ContextCompat\r\nimport androidx.recyclerview.widget.DiffUtil\r\nimport androidx.recyclerview.widget.ListAdapter\r\nimport androidx.recyclerview.widget.RecyclerView\r\nimport com.example.colorphone.R\r\nimport com.example.colorphone.databinding.ItemRoomBinding\r\nimport com.example.colorphone.domain.model.Room\r\nimport com.example.colorphone.domain.model.RoomStatus\r\nimport java.text.NumberFormat\r\nimport java.util.Locale\r\n\r\nclass RoomAdapter : ListAdapter<Room, RoomAdapter.RoomViewHolder>(RoomDiffCallback()) {\r\n\r\n    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RoomViewHolder {\r\n        val binding = ItemRoomBinding.inflate(LayoutInflater.from(parent.context), parent, false)\r\n        return RoomViewHolder(binding)\r\n    }\r\n\r\n    override fun onBindViewHolder(holder: RoomViewHolder, position: Int) {\r\n        holder.bind(getItem(position))\r\n    }\r\n\r\n    class RoomViewHolder(private val binding: ItemRoomBinding) : RecyclerView.ViewHolder(binding.root) {\r\n        fun bind(room: Room) {\r\n            binding.apply {\r\n                tvRoomName.text = room.name\r\n                \r\n                // Format price\r\n                val format = NumberFormat.getCurrencyInstance(Locale(\"vi\", \"VN\"))\r\n                tvPrice.text = format.format(room.price)\r\n                \r\n                // Set status text and background color\r\n                tvStatus.text = room.status.description\r\n                if (room.status == RoomStatus.AVAILABLE) {\r\n                    tvStatus.background = ContextCompat.getDrawable(root.context, R.drawable.bg_status_available)\r\n                } else {\r\n                    tvStatus.background = ContextCompat.getDrawable(root.context, R.drawable.bg_status_rented)\r\n                }\r\n            }\r\n        }\r\n    }\r\n\r\n    class RoomDiffCallback : DiffUtil.ItemCallback<Room>() {\r\n        override fun areItemsTheSame(oldItem: Room, newItem: Room): Boolean {\r\n            return oldItem.id == newItem.id\r\n        }\r\n\r\n        override fun areContentsTheSame(oldItem: Room, newItem: Room): Boolean {\r\n            return oldItem == newItem\r\n        }\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/colorphone/ui/main/RoomAdapter.kt b/app/src/main/java/com/example/colorphone/ui/main/RoomAdapter.kt
+--- a/app/src/main/java/com/example/colorphone/ui/main/RoomAdapter.kt	(revision 8a5d6ecde16e1aac7de4e30ee6fe024218f37a08)
++++ b/app/src/main/java/com/example/colorphone/ui/main/RoomAdapter.kt	(date 1773395346498)
+@@ -13,18 +13,21 @@
+ import java.text.NumberFormat
+ import java.util.Locale
+ 
+-class RoomAdapter : ListAdapter<Room, RoomAdapter.RoomViewHolder>(RoomDiffCallback()) {
++class RoomAdapter(private val onItemClick: (Room) -> Unit) : ListAdapter<Room, RoomAdapter.RoomViewHolder>(RoomDiffCallback()) {
+ 
+     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RoomViewHolder {
+         val binding = ItemRoomBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+-        return RoomViewHolder(binding)
++        return RoomViewHolder(binding, onItemClick)
+     }
+ 
+     override fun onBindViewHolder(holder: RoomViewHolder, position: Int) {
+         holder.bind(getItem(position))
+     }
+ 
+-    class RoomViewHolder(private val binding: ItemRoomBinding) : RecyclerView.ViewHolder(binding.root) {
++    class RoomViewHolder(
++        private val binding: ItemRoomBinding,
++        private val onItemClick: (Room) -> Unit
++    ) : RecyclerView.ViewHolder(binding.root) {
+         fun bind(room: Room) {
+             binding.apply {
+                 tvRoomName.text = room.name
+@@ -40,6 +43,10 @@
+                 } else {
+                     tvStatus.background = ContextCompat.getDrawable(root.context, R.drawable.bg_status_rented)
+                 }
++
++                root.setOnClickListener {
++                    onItemClick(room)
++                }
+             }
+         }
+     }
+Index: app/src/main/java/com/example/colorphone/ui/main/EditRoomFragment.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/colorphone/ui/main/EditRoomFragment.kt b/app/src/main/java/com/example/colorphone/ui/main/EditRoomFragment.kt
+new file mode 100644
+--- /dev/null	(date 1773395355846)
++++ b/app/src/main/java/com/example/colorphone/ui/main/EditRoomFragment.kt	(date 1773395355846)
+@@ -0,0 +1,72 @@
++package com.example.colorphone.ui.main
++
++import android.os.Bundle
++import android.view.View
++import androidx.fragment.app.activityViewModels
++import androidx.navigation.fragment.findNavController
++import androidx.navigation.fragment.navArgs
++import com.example.colorphone.databinding.FragmentEditRoomBinding
++import com.example.colorphone.domain.model.Room
++import com.example.colorphone.domain.model.RoomStatus
++import com.example.colorphone.ui.core.ActivityViewModel
++import com.example.colorphone.ui.core.base.BaseFragment
++import dagger.hilt.android.AndroidEntryPoint
++
++@AndroidEntryPoint
++class EditRoomFragment : BaseFragment<FragmentEditRoomBinding>(FragmentEditRoomBinding::inflate) {
++
++    private val viewModel: ActivityViewModel by activityViewModels()
++    private val args: EditRoomFragmentArgs by navArgs()
++    private var currentRoom: Room? = null
++
++    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
++        super.onViewCreated(view, savedInstanceState)
++        val roomId = args.roomId
++        currentRoom = viewModel.getRoom(roomId)
++
++        currentRoom?.let { room ->
++            setupUI(room)
++        }
++
++        binding.btnSave.setOnClickListener {
++            updateRoom()
++        }
++    }
++
++    private fun setupUI(room: Room) {
++        binding.apply {
++            etRoomName.setText(room.name)
++            etPrice.setText(room.price.toString())
++            etTenantName.setText(room.tenantName)
++            etPhoneNumber.setText(room.phoneNumber)
++            if (room.status == RoomStatus.AVAILABLE) {
++                rbAvailable.isChecked = true
++            } else {
++                rbRented.isChecked = true
++            }
++        }
++    }
++
++    private fun updateRoom() {
++        val name = binding.etRoomName.text.toString()
++        val price = binding.etPrice.text.toString().toDoubleOrNull() ?: 0.0
++        val tenantName = binding.etTenantName.text.toString()
++        val phoneNumber = binding.etPhoneNumber.text.toString()
++        val status = if (binding.rbAvailable.isChecked) RoomStatus.AVAILABLE else RoomStatus.RENTED
++
++        currentRoom?.let { room ->
++            val updatedRoom = room.copy(
++                name = name,
++                price = price,
++                status = status,
++                tenantName = tenantName,
++                phoneNumber = phoneNumber
++            )
++            viewModel.updateRoom(updatedRoom)
++            findNavController().popBackStack()
++        }
++    }
++
++    override fun setupObserver() {
++    }
++}
+Index: app/src/main/res/layout/fragment_edit_room.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/fragment_edit_room.xml b/app/src/main/res/layout/fragment_edit_room.xml
+new file mode 100644
+--- /dev/null	(date 1773395303085)
++++ b/app/src/main/res/layout/fragment_edit_room.xml	(date 1773395303085)
+@@ -0,0 +1,108 @@
++<?xml version="1.0" encoding="utf-8"?>
++<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:app="http://schemas.android.com/apk/res-auto"
++    xmlns:tools="http://schemas.android.com/tools"
++    android:layout_width="match_parent"
++    android:layout_height="match_parent"
++    android:padding="16dp">
++
++    <com.google.android.material.textfield.TextInputLayout
++        android:id="@+id/tilRoomName"
++        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
++        android:layout_width="match_parent"
++        android:layout_height="wrap_content"
++        android:hint="Tên phòng"
++        app:layout_constraintTop_toTopOf="parent">
++
++        <com.google.android.material.textfield.TextInputEditText
++            android:id="@+id/etRoomName"
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content" />
++    </com.google.android.material.textfield.TextInputLayout>
++
++    <com.google.android.material.textfield.TextInputLayout
++        android:id="@+id/tilPrice"
++        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
++        android:layout_width="match_parent"
++        android:layout_height="wrap_content"
++        android:layout_marginTop="8dp"
++        android:hint="Giá"
++        app:layout_constraintTop_toBottomOf="@id/tilRoomName">
++
++        <com.google.android.material.textfield.TextInputEditText
++            android:id="@+id/etPrice"
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            android:inputType="numberDecimal" />
++    </com.google.android.material.textfield.TextInputLayout>
++
++    <com.google.android.material.textfield.TextInputLayout
++        android:id="@+id/tilTenantName"
++        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
++        android:layout_width="match_parent"
++        android:layout_height="wrap_content"
++        android:layout_marginTop="8dp"
++        android:hint="Tên khách thuê"
++        app:layout_constraintTop_toBottomOf="@id/tilPrice">
++
++        <com.google.android.material.textfield.TextInputEditText
++            android:id="@+id/etTenantName"
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content" />
++    </com.google.android.material.textfield.TextInputLayout>
++
++    <com.google.android.material.textfield.TextInputLayout
++        android:id="@+id/tilPhoneNumber"
++        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
++        android:layout_width="match_parent"
++        android:layout_height="wrap_content"
++        android:layout_marginTop="8dp"
++        android:hint="Số điện thoại"
++        app:layout_constraintTop_toBottomOf="@id/tilTenantName">
++
++        <com.google.android.material.textfield.TextInputEditText
++            android:id="@+id/etPhoneNumber"
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            android:inputType="phone" />
++    </com.google.android.material.textfield.TextInputLayout>
++
++    <TextView
++        android:id="@+id/tvStatusLabel"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:layout_marginTop="16dp"
++        android:text="Trạng thái"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toBottomOf="@id/tilPhoneNumber" />
++
++    <RadioGroup
++        android:id="@+id/rgStatus"
++        android:layout_width="match_parent"
++        android:layout_height="wrap_content"
++        android:orientation="horizontal"
++        app:layout_constraintTop_toBottomOf="@id/tvStatusLabel">
++
++        <RadioButton
++            android:id="@+id/rbAvailable"
++            android:layout_width="wrap_content"
++            android:layout_height="wrap_content"
++            android:text="Còn trống" />
++
++        <RadioButton
++            android:id="@+id/rbRented"
++            android:layout_width="wrap_content"
++            android:layout_height="wrap_content"
++            android:layout_marginStart="16dp"
++            android:text="Đã thuê" />
++    </RadioGroup>
++
++    <Button
++        android:id="@+id/btnSave"
++        android:layout_width="match_parent"
++        android:layout_height="wrap_content"
++        android:layout_marginTop="24dp"
++        android:text="Cập nhật"
++        app:layout_constraintTop_toBottomOf="@id/rgStatus" />
++
++</androidx.constraintlayout.widget.ConstraintLayout>
+Index: app/src/main/res/navigation/nav_graph.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<navigation xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\"\r\n    android:id=\"@+id/nav_graph\"\r\n    app:startDestination=\"@id/mainFragment\">\r\n\r\n\r\n    <fragment\r\n        android:id=\"@+id/mainFragment\"\r\n        android:name=\"com.example.colorphone.ui.main.MainFragment\"\r\n        android:label=\"fragment_main\"\r\n        tools:layout=\"@layout/fragment_main\" />\r\n\r\n</navigation>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/navigation/nav_graph.xml b/app/src/main/res/navigation/nav_graph.xml
+--- a/app/src/main/res/navigation/nav_graph.xml	(revision 8a5d6ecde16e1aac7de4e30ee6fe024218f37a08)
++++ b/app/src/main/res/navigation/nav_graph.xml	(date 1773395363450)
+@@ -10,6 +10,20 @@
+         android:id="@+id/mainFragment"
+         android:name="com.example.colorphone.ui.main.MainFragment"
+         android:label="fragment_main"
+-        tools:layout="@layout/fragment_main" />
++        tools:layout="@layout/fragment_main">
++        <action
++            android:id="@+id/action_mainFragment_to_editRoomFragment"
++            app:destination="@id/editRoomFragment" />
++    </fragment>
++
++    <fragment
++        android:id="@+id/editRoomFragment"
++        android:name="com.example.colorphone.ui.main.EditRoomFragment"
++        android:label="EditRoomFragment"
++        tools:layout="@layout/fragment_edit_room">
++        <argument
++            android:name="roomId"
++            app:argType="string" />
++    </fragment>
+ 
+ </navigation>
+\ No newline at end of file
