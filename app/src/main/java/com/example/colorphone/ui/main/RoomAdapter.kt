@@ -13,11 +13,14 @@ import com.example.colorphone.domain.model.RoomStatus
 import java.text.NumberFormat
 import java.util.Locale
 
-class RoomAdapter(private val onItemClick: (Room) -> Unit) : ListAdapter<Room, RoomAdapter.RoomViewHolder>(RoomDiffCallback()) {
+class RoomAdapter(
+    private val onItemClick: (Room) -> Unit,
+    private val onDeleteClick: (Room) -> Unit
+) : ListAdapter<Room, RoomAdapter.RoomViewHolder>(RoomDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RoomViewHolder {
         val binding = ItemRoomBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return RoomViewHolder(binding, onItemClick)
+        return RoomViewHolder(binding, onItemClick, onDeleteClick)
     }
 
     override fun onBindViewHolder(holder: RoomViewHolder, position: Int) {
@@ -26,7 +29,8 @@ class RoomAdapter(private val onItemClick: (Room) -> Unit) : ListAdapter<Room, R
 
     class RoomViewHolder(
         private val binding: ItemRoomBinding,
-        private val onItemClick: (Room) -> Unit
+        private val onItemClick: (Room) -> Unit,
+        private val onDeleteClick: (Room) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(room: Room) {
             binding.apply {
@@ -46,6 +50,10 @@ class RoomAdapter(private val onItemClick: (Room) -> Unit) : ListAdapter<Room, R
 
                 root.setOnClickListener {
                     onItemClick(room)
+                }
+
+                ivDelete.setOnClickListener {
+                    onDeleteClick(room)
                 }
             }
         }
