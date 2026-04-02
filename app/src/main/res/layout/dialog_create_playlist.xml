@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#E6000000"
+    android:padding="24dp">
+
+    <TextView
+        android:id="@+id/tvNewPlaylistTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Playlist"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/etPlaylistTitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <EditText
+        android:id="@+id/etPlaylistTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:backgroundTint="@color/gray_text"
+        android:hint="Give your playlist a title"
+        android:gravity="center"
+        android:paddingBottom="12dp"
+        android:textColor="@color/white"
+        android:textColorHint="@color/gray_text"
+        app:layout_constraintBottom_toTopOf="@+id/tvPrivacyLabel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvNewPlaylistTitle" />
+
+    <TextView
+        android:id="@+id/tvPrivacyLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="Privacy"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/btnPrivacy"
+        app:layout_constraintStart_toStartOf="@+id/etPlaylistTitle"
+        app:layout_constraintTop_toBottomOf="@+id/etPlaylistTitle" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnPrivacy"
+        style="@style/Widget.Material3.Button.OutlinedButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Public"
+        android:textAllCaps="false"
+        android:textColor="@color/cyan"
+        app:cornerRadius="8dp"
+        app:icon="@drawable/ic_public"
+        app:iconTint="@color/cyan"
+        app:layout_constraintBottom_toTopOf="@+id/btnCancel"
+        app:layout_constraintStart_toStartOf="@+id/tvPrivacyLabel"
+        app:layout_constraintTop_toBottomOf="@+id/tvPrivacyLabel"
+        app:strokeColor="@color/cyan" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnCancel"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:layout_marginTop="48dp"
+        android:layout_marginEnd="8dp"
+        android:backgroundTint="#333333"
+        android:text="Cancel"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        app:cornerRadius="28dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnCreate"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnPrivacy" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnCreate"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:layout_marginStart="8dp"
+        android:backgroundTint="@color/cyan"
+        android:text="Create"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        app:cornerRadius="28dp"
+        app:layout_constraintBottom_toBottomOf="@+id/btnCancel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btnCancel"
+        app:layout_constraintTop_toTopOf="@+id/btnCancel" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

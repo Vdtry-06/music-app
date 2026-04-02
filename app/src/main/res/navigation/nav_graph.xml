@@ -10,6 +10,25 @@
         android:id="@+id/mainFragment"
         android:name="com.example.colorphone.ui.main.MainFragment"
         android:label="fragment_main"
-        tools:layout="@layout/fragment_main" />
+        tools:layout="@layout/fragment_main" >
+        <action
+            android:id="@+id/action_mainFragment_to_addPlaylistFragment"
+            app:destination="@id/addPlaylistFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_queueFragment"
+            app:destination="@id/queueFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/addPlaylistFragment"
+        android:name="com.example.colorphone.ui.playlist.AddPlaylistFragment"
+        android:label="AddPlaylistFragment"
+        tools:layout="@layout/fragment_add_playlist" />
+
+    <fragment
+        android:id="@+id/queueFragment"
+        android:name="com.example.colorphone.ui.queue.QueueFragment"
+        android:label="QueueFragment"
+        tools:layout="@layout/fragment_queue" />
 
 </navigation>
