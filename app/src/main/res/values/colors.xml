@@ -20,5 +20,15 @@
     <color name="thumb_night">#514877</color>
     <color name="thumb_gold">#8E7B4E</color>
     <color name="thumb_shadow">#393130</color>
+    <color name="song_cover_coral">#FF8A5D</color>
+    <color name="song_cover_magenta">#E94B93</color>
+    <color name="song_cover_purple">#5C56C9</color>
+    <color name="song_cover_teal">#22C3C8</color>
+    <color name="lyrics_card_start">#59D7EE</color>
+    <color name="lyrics_card_end">#239FC7</color>
+    <color name="control_dark">#151517</color>
+    <color name="control_primary_start">#67E5F1</color>
+    <color name="control_primary_end">#20A9D8</color>
+    <color name="progress_track">#3A3A40</color>
 
 </resources>

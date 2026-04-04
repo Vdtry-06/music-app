@@ -12,4 +12,10 @@
         android:label="fragment_playlist"
         tools:layout="@layout/fragment_playlist" />
 
+    <fragment
+        android:id="@+id/songFragment"
+        android:name="com.example.colorphone.ui.song.SongFragment"
+        android:label="fragment_song"
+        tools:layout="@layout/fragment_song" />
+
 </navigation>

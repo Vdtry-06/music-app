@@ -24,4 +24,27 @@
     <string name="content_home">Home</string>
     <string name="content_explore">Explore</string>
     <string name="content_library">Library</string>
+    <string name="song_playing_from_playlist">PLAYING FROM PLAYLIST:</string>
+    <string name="song_album_title">Lofi Loft</string>
+    <string name="song_title">grainy days</string>
+    <string name="song_artist">moody.</string>
+    <string name="song_current_time">0:00</string>
+    <string name="song_total_time">2:43</string>
+    <string name="lyrics_title">LYRICS</string>
+    <string name="lyrics_line_1">You never look at the sky</string>
+    <string name="lyrics_line_2">Cause you think it&#39;s too high</string>
+    <string name="lyrics_line_3">You never look at the stars</string>
+    <string name="lyrics_line_4">Cause you think they&#39;re too far</string>
+    <string name="lyrics_line_5">But they&#39;re showing the lights to the way back home</string>
+    <string name="lyrics_line_6">When you don&#39;t know where to go</string>
+    <string name="content_song_cover">Song cover</string>
+    <string name="content_share">Share</string>
+    <string name="content_favorite">Favorite</string>
+    <string name="content_shuffle">Shuffle</string>
+    <string name="content_previous">Previous</string>
+    <string name="content_play">Play</string>
+    <string name="content_next">Next</string>
+    <string name="content_equalizer">Equalizer</string>
+    <string name="content_add">Add</string>
+    <string name="content_download">Download</string>
 </resources>
