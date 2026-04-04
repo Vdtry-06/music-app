@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
+    <color name="black">#FF121212</color>
     <color name="white">#FFFFFFFF</color>
     <color name="yellow">#FF9900</color>
+    <color name="cyan_accent">#00E5FF</color>
+    <color name="gray_text">#B3B3B3</color>
+    <color name="gray_chip_bg">#333333</color>
+    <color name="gray_divider">#282828</color>
 
 </resources>

@@ -1,6 +1,12 @@
 <resources>
-    <string name="app_name">ColorPhone</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="customer">Customize</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="app_name">Music App</string>
+    <string name="library_title">Your Library</string>
+    <string name="add_new_playlist">Add New Playlist</string>
+    <string name="liked_songs">Your Liked Songs</string>
+    <string name="recently_played">Recently played</string>
+    <string name="filter_folders">Folders</string>
+    <string name="filter_playlists">Playlists</string>
+    <string name="filter_artists">Artists</string>
+    <string name="filter_albums">Albums</string>
+    <string name="filter_podcasts">Podcasts &amp; Shows</string>
 </resources>

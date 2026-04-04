@@ -1,0 +1,165 @@
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    android:fillViewport="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- Header -->
+        <ImageView
+            android:id="@+id/ivAppLogo"
+            android:layout_width="@dimen/_24sdp"
+            android:layout_height="@dimen/_24sdp"
+            android:layout_marginStart="@dimen/_16sdp"
+            android:layout_marginTop="@dimen/_16sdp"
+            android:src="@drawable/ic_music_note"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvHeaderTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_12sdp"
+            android:fontFamily="sans-serif-bold"
+            android:text="@string/library_title"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_20ssp"
+            app:layout_constraintBottom_toBottomOf="@id/ivAppLogo"
+            app:layout_constraintStart_toEndOf="@id/ivAppLogo"
+            app:layout_constraintTop_toTopOf="@id/ivAppLogo" />
+
+        <ImageView
+            android:id="@+id/btnSearch"
+            android:layout_width="@dimen/_24sdp"
+            android:layout_height="@dimen/_24sdp"
+            android:layout_marginEnd="@dimen/_16sdp"
+            android:padding="@dimen/_2sdp"
+            android:src="@drawable/ic_search"
+            app:layout_constraintBottom_toBottomOf="@id/tvHeaderTitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tvHeaderTitle" />
+
+        <!-- Filters -->
+        <HorizontalScrollView
+            android:id="@+id/scrollFilters"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_16sdp"
+            android:clipToPadding="false"
+            android:paddingStart="@dimen/_16sdp"
+            android:paddingEnd="@dimen/_16sdp"
+            android:scrollbars="none"
+            app:layout_constraintTop_toBottomOf="@id/tvHeaderTitle">
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chipGroupFilters"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:singleLine="true"
+                app:singleSelection="true">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipFolders"
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/filter_folders" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipPlaylists"
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/filter_playlists" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipArtists"
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/filter_artists" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipAlbums"
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/filter_albums" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipPodcasts"
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/filter_podcasts" />
+
+            </com.google.android.material.chip.ChipGroup>
+        </HorizontalScrollView>
+
+        <!-- Fixed Actions -->
+        <LinearLayout
+            android:id="@+id/layoutActions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_16sdp"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@id/scrollFilters">
+
+            <include
+                android:id="@+id/itemAddPlaylist"
+                layout="@layout/item_library_list" />
+
+            <include
+                android:id="@+id/itemLikedSongs"
+                layout="@layout/item_library_list" />
+
+        </LinearLayout>
+
+        <!-- Sorting -->
+        <LinearLayout
+            android:id="@+id/layoutSort"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_16sdp"
+            android:layout_marginTop="@dimen/_16sdp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layoutActions">
+
+            <ImageView
+                android:layout_width="@dimen/_16sdp"
+                android:layout_height="@dimen/_16sdp"
+                android:src="@drawable/ic_sort" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:text="@string/recently_played"
+                android:textColor="@color/cyan_accent"
+                android:textSize="@dimen/_12ssp" />
+
+        </LinearLayout>
+
+        <!-- Main List -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvLibrary"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:nestedScrollingEnabled="false"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layoutSort"
+            tools:itemCount="5"
+            tools:listitem="@layout/item_library_list" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>

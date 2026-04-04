@@ -3,8 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/mainFragment">
+    app:startDestination="@id/libraryFragment">
 
+    <fragment
+        android:id="@+id/libraryFragment"
+        android:name="com.example.colorphone.ui.library.LibraryFragment"
+        android:label="fragment_library"
+        tools:layout="@layout/fragment_library" />
 
     <fragment
         android:id="@+id/mainFragment"
