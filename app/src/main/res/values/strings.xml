@@ -1,6 +1,27 @@
 <resources>
     <string name="app_name">ColorPhone</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="customer">Customize</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="playlist_source">FROM “PLAYLISTS”</string>
+    <string name="playlist_title">Lofi Loft</string>
+    <string name="playlist_subtitle">soft, chill, dreamy, lo-fi beats</string>
+    <string name="track_grainy_days">grainy days</string>
+    <string name="track_coffee">Coffee</string>
+    <string name="track_raindrops">raindrops</string>
+    <string name="track_tokyo">Tokyo</string>
+    <string name="track_lullaby">Lullaby</string>
+    <string name="track_hazel_eyes">Hazel Eyes</string>
+    <string name="artist_moody">moody.</string>
+    <string name="artist_kainbeats">Kainbeats</string>
+    <string name="artist_rainyyxx">rainyyxx</string>
+    <string name="artist_smyang">SmYang</string>
+    <string name="artist_iamfinenow">iamfinenow</string>
+    <string name="nav_home">Home</string>
+    <string name="nav_explore">Explore</string>
+    <string name="nav_library">Library</string>
+    <string name="content_back">Back</string>
+    <string name="content_more">More options</string>
+    <string name="content_playlist_cover">Playlist cover</string>
+    <string name="content_home">Home</string>
+    <string name="content_explore">Explore</string>
+    <string name="content_library">Library</string>
 </resources>
