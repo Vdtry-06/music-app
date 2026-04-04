@@ -24,4 +24,10 @@
         android:label="fragment_menu"
         tools:layout="@layout/fragment_menu" />
 
+    <fragment
+        android:id="@+id/sleepTimerFragment"
+        android:name="com.example.colorphone.ui.sleep_timer.SleepTimerFragment"
+        android:label="fragment_sleep_timer"
+        tools:layout="@layout/fragment_sleep_timer" />
+
 </navigation>
