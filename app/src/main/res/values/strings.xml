@@ -47,4 +47,21 @@
     <string name="content_equalizer">Equalizer</string>
     <string name="content_add">Add</string>
     <string name="content_download">Download</string>
+    <string name="menu_add_to_playlist">Add to playlist</string>
+    <string name="menu_add_to_queue">Add to queue</string>
+    <string name="menu_remove_from_playlist">Remove from playlist</string>
+    <string name="menu_modify_tags">Modify tags</string>
+    <string name="menu_view_artist">View Artist</string>
+    <string name="menu_view_album">View Album</string>
+    <string name="menu_show_credits">Show Credits</string>
+    <string name="menu_share">Share</string>
+    <string name="menu_generate_qr_code">Generate QR Code</string>
+    <string name="menu_sleep_timer">Sleep Timer</string>
+    <string name="menu_hide_song">Hide song</string>
+    <string name="menu_go_to_song_radio">Go to Song Radio</string>
+    <string name="content_menu_add">Add</string>
+    <string name="content_menu_qr">QR code</string>
+    <string name="content_menu_sleep">Sleep timer</string>
+    <string name="content_menu_hide">Hide song</string>
+    <string name="content_menu_radio">Song radio</string>
 </resources>

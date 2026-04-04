@@ -18,4 +18,10 @@
         android:label="fragment_song"
         tools:layout="@layout/fragment_song" />
 
+    <fragment
+        android:id="@+id/menuFragment"
+        android:name="com.example.colorphone.ui.menu.MenuFragment"
+        android:label="fragment_menu"
+        tools:layout="@layout/fragment_menu" />
+
 </navigation>
